@@ -16,7 +16,7 @@ public class SkyView {
 		}
 		
 		//this doesn't print out an array of doubles
-		//number of items printed doesn't equally the number of items that should be in the array
+		//number of items printed doesn't equal the number of items that should be in the array
 		for (int i = 0; i < view.length; i++){
 			System.out.println(view[i]);
 		}
