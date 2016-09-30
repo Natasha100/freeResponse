@@ -14,7 +14,7 @@ public class SeatingChart {
 			for (int i = 0; i < rows; i++) {
 				if (studentCount < studentList.size()) {
 					seats[i][j] = studentList.get(studentCount);
-					//System.out.println("i: " + i + " j: " + j + " count: " + studentCount);
+					//System.out.println("i: " + i + " j: " + j + " count: " + seats[i][j].getName());
 					studentCount++;
 				} else {
 					seats[i][j] = null;
@@ -22,21 +22,38 @@ public class SeatingChart {
 			}
 		}
 		
-		//print seating chart
-		for (int a = 0; a < seats.length; a++){
-			for (int b = 0; b < seats[0].length; b++){
-				System.out.print("|" + seats[a][b] + "|");
-				//System.out.print("|" + seats[a][b].getName() + "|");
-			}
-			System.out.println();
-		}
 	}
 	
+	public void printChart() {
+		System.out.println();
+		for (int a = 0; a < seats.length; a++){
+			for (int b = 0; b < seats[0].length; b++){
+				
+				if (seats[a][b] != null) {
+					System.out.print("| " + seats[a][b].getName() + " ");
+				} else {
+					System.out.print("| null ");
+				}
+			}
+			System.out.println("|");
+		}
+		System.out.println();
+	}
 	
 	public int removeAbsentStudent(int allowedAbsences) {
+		int removedStudents = 0;
 		
-		//@return number of student removed from seats
-		return 0;
+		for (int i = 0; i < seats.length; i++){
+			for (int j = 0; j < seats.length; j++){
+				if (seats[i][j] != null){
+					if (seats[i][j].getAbsenceCount() > allowedAbsences) {
+						seats[i][j] = null;
+						removedStudents++;
+					}
+				}
+			}
+		}
+		return removedStudents;
 	}
 	
 	public static void main(String[] args){
@@ -53,6 +70,8 @@ public class SeatingChart {
 		students.add(Henry);
 		
 		SeatingChart chart = new SeatingChart(students, 3, 3);
-		
+		chart.printChart();
+		System.out.println("Students removed from seating chart: " + chart.removeAbsentStudent(4));
+		chart.printChart();
 	}
 }
